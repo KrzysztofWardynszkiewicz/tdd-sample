@@ -1,6 +1,5 @@
 using Calculator;
 using Moq;
-using System;
 using Xunit;
 
 namespace CalculatorTests
@@ -18,6 +17,19 @@ namespace CalculatorTests
             sut.Sum(arg1, arg2);
 
             memoryMock.Verify(x => x.Store(expected));
+        }
+
+        [Fact]
+        public void ReadTest()
+        {
+            var memoryMock = new Mock<IMemory<double>>();
+            memoryMock.Setup(x => x.Read()).Returns(5);
+
+            Calculator.Calculator sut = new Calculator.Calculator(memoryMock.Object);
+            var result = sut.GetStored();
+
+            Assert.Equal(5, result);
+            memoryMock.Verify(x => x.Read());
         }
     }
 }

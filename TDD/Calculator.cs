@@ -15,5 +15,10 @@ namespace Calculator
         {
             memory.Store(a + b);
         }
+
+        public double GetStored()
+        {
+            return memory.Read();
+        }
     }
 }
